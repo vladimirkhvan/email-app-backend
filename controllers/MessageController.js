@@ -4,7 +4,7 @@ import { db } from '../database/db.js';
 
 export const getMessages = (req, res) => {
     const q = 'SELECT * FROM mailapp.messages WHERE receiver = ?';
-    db.query(q, [req.body.username], (err, data) => {
+    db.query(q, [req.body.receiver], (err, data) => {
         if (err) {
             return res.json({ success: false, err });
         }
