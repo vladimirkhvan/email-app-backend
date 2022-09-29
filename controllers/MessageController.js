@@ -4,7 +4,7 @@ import { db } from '../database/db.js';
 
 export const getMessages = (req, res) => {
     const q = 'SELECT * FROM mailapp.messages WHERE receiver = ?';
-    db.query(q, [req.body.receiver], (err, data) => {
+    db.query(q, [req.params.receiver], (err, data) => {
         if (err) {
             return res.json({ success: false, err });
         }
@@ -13,10 +13,19 @@ export const getMessages = (req, res) => {
 };
 
 export const saveMessage = (req, res) => {
-    const q = 'INSERT INTO mailapp.messages (`topic`, `message`, `sender`, `receiver`, `createdAt`) VALUES (?)';
+    const q =
+        'INSERT INTO mailapp.messages (`topic`, `message`, `sender`, `receiver`, `createdAt`) VALUES (?)';
     db.query(
         q,
-        [[req.body.topic, req.body.message, req.body.sender, req.body.receiver, getCurrentDatetime()]],
+        [
+            [
+                req.body.topic,
+                req.body.message,
+                req.body.sender,
+                req.body.receiver,
+                getCurrentDatetime(),
+            ],
+        ],
         (err, data) => {
             if (err) {
                 return res.json({ success: false, err });
