@@ -12,6 +12,6 @@ app.get('/:receiver', getMessages);
 
 app.post('/', saveMessage);
 
-app.listen(8800, () => {
+app.listen(process.env.PORT || 8800, () => {
     console.log('server is working properly');
 });

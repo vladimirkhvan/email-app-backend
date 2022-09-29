@@ -3,7 +3,7 @@ import { getCurrentDatetime } from '../utils/getCurrentDatetime.js';
 import { db } from '../database/db.js';
 
 export const getMessages = (req, res) => {
-    const q = 'SELECT * FROM mailapp.messages WHERE receiver = ?';
+    const q = 'SELECT * FROM messages WHERE receiver = ?';
     db.query(q, [req.params.receiver], (err, data) => {
         if (err) {
             return res.json({ success: false, err });
@@ -14,7 +14,7 @@ export const getMessages = (req, res) => {
 
 export const saveMessage = (req, res) => {
     const q =
-        'INSERT INTO mailapp.messages (`topic`, `message`, `sender`, `receiver`, `createdAt`) VALUES (?)';
+        'INSERT INTO messages (`topic`, `message`, `sender`, `receiver`, `createdAt`) VALUES (?)';
     db.query(
         q,
         [
